@@ -22,14 +22,13 @@ export const NewNotes = () => {
 
 
 const StyledNewNotesFrom = styled.form`
-    position: absolute;
-    top: 10px;
-    left:10px;
     width: 300px;
     height: 300px;
     padding:20px;
+    margin: 20px;
     background-color: #ff7fba;
     box-shadow:  0 0 5px #222;
+    grid-area: newNoteForm;
 
     & textarea {
         border: 1px solid lightgrey;
