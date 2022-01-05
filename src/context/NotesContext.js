@@ -40,6 +40,7 @@ const initialState = {
 const ADD_NOTES = "ADD_NOTES";
 const DELETE_NOTE = "DELETE_NOTE";
 const CHANGE_COLOR = "CHANGE_COLOR";
+const CHANGE_NOTE = "CHANGE_NOTE";
 
 const notesReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -82,6 +83,19 @@ const notesReducer = (state = initialState, action) => {
         }),
       };
     }
+    case CHANGE_NOTE: {
+      let task = state.notes.find((i) => i.id === action.id);
+      task = { ...task, note: action.changedNote };
+      return {
+        ...state,
+        notes: state.notes.map((i) => {
+          if (i.id === action.id) {
+            return task;
+          }
+          return i;
+        }),
+      };
+    }
     default: {
       return state;
     }
@@ -102,9 +116,20 @@ export const NotesContextProvider = ({ children }) => {
     dispatch({ type: CHANGE_COLOR, id: id, color: color });
   };
 
+  const changeNote = (id, changedNote) => {
+    dispatch({ type: CHANGE_NOTE, id: id, changedNote: changedNote });
+  };
+
   return (
     <NotesContext.Provider
-      value={{ state, addNote, deleteNote, notesColors, changeColor }}
+      value={{
+        state,
+        addNote,
+        deleteNote,
+        notesColors,
+        changeColor,
+        changeNote,
+      }}
     >
       {children}
     </NotesContext.Provider>

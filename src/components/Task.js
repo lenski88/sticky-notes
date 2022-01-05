@@ -1,15 +1,21 @@
-import React, { useState, useContext, useCallback } from "react";
+import React, { useState, useContext } from "react";
 import styled from "styled-components";
 import { NotesContext } from "../context/NotesContext";
 import { ListColors } from "./ListColors";
+import { ChangeNote } from "./ChangeNote";
 
 export const Task = ({ id, note, time, color, rotate }) => {
   const { deleteNote } = useContext(NotesContext);
   const [isChangeColor, setIsChangeColor] = useState(false);
+  const [isChangeNote, setIsChangeNote] = useState(false);
 
-  const colorChanged = useCallback(() => {
+  const colorChanged = () => {
     setIsChangeColor(false);
-  }, []);
+  };
+
+  const cancelChangeNote = () => {
+      setIsChangeNote(false);
+  }
 
   return (
     <StyledTask bg={color} rt={rotate}>
@@ -25,6 +31,8 @@ export const Task = ({ id, note, time, color, rotate }) => {
       {isChangeColor && (
         <ListColors color={color} id={id} cbColorChanged={colorChanged} />
       )}
+      <i className="fas fa-pencil-alt changeNote" onClick={()=> setIsChangeNote(!isChangeNote)}></i>
+      {isChangeNote && <ChangeNote id={id} note={note} bg={color} cbCancelChangeNote={cancelChangeNote}/>}
     </StyledTask>
   );
 };
@@ -65,9 +73,22 @@ const StyledTask = styled.li`
 
   & .change {
     position: absolute;
+    bottom: 0px;
+    left: 85px;
+    font-size: 2.5rem;
+    transition: all 0.5s;
+    cursor: pointer;
+
+    &:hover {
+      transform: scale(0.9);
+    }
+  }
+
+  & .changeNote {
+    position: absolute;
     bottom: 5px;
     left: 45px;
-    font-size: 2.5rem;
+    font-size: 2.2rem;
     transition: all 0.5s;
     cursor: pointer;
 

@@ -2,43 +2,47 @@ import React, { useState, useContext } from "react";
 import styled from "styled-components";
 import { NotesContext } from "../context/NotesContext";
 
-export const NewNotes = () => {
-  const { addNote } = useContext(NotesContext);
-  const [note, setNote] = useState("");
+export const ChangeNote = ({ id ,note, bg, cbCancelChangeNote }) => {
+  const [changedNote, setChangedNote] = useState(note);
+  const {changeNote} = useContext(NotesContext);
 
-  const handleSubmit = (eo) => {
+  const handleChangeNote = (eo) => {
     eo.preventDefault();
 
-    if (!note) return;
+    if (!changedNote) return;
+    if (changedNote === note)  {
+        cbCancelChangeNote();
+        return;    
+    }
 
-    addNote(note);
-    setNote("");
+    changeNote(id, changedNote);
+    cbCancelChangeNote();
   };
   return (
-    <StyledNewNotesFrom onSubmit={handleSubmit}>
+    <StyledChangeNote bg={bg} onSubmit={handleChangeNote}>
       <textarea
-        value={note}
-        onChange={(eo) => setNote(eo.target.value)}
+        value={changedNote}
+        onChange={(eo) => setChangedNote(eo.target.value)}
         placeholder="Type here your note..."
         maxLength={140}
       ></textarea>
-      <button type="submit">Create note</button>
-    </StyledNewNotesFrom>
+      <button type="submit">Change</button>
+      <button type="reset" onClick={() => cbCancelChangeNote()}>Cancel</button>
+    </StyledChangeNote>
   );
 };
 
-const StyledNewNotesFrom = styled.form`
+const StyledChangeNote = styled.form`
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 300px;
   height: 300px;
   padding: 20px;
-  background-color: #ff7fba;
+  background-color: ${({bg})=> bg};
   box-shadow: 0 0 5px #222;
   grid-area: newNoteForm;
   transition: all 0.5s;
-
-  @media (max-width: 768px) {
-    width: 100%;
-  }
 
   & textarea {
     border: 1px solid lightgrey;
@@ -53,9 +57,9 @@ const StyledNewNotesFrom = styled.form`
   }
 
   & button {
-    width: 100%;
+    width: 40%;
     padding: 10px;
-    margin: 20px 0;
+    margin: 20px 10px;
     background-color: #feff9d;
     border: none;
     box-shadow: 0 0 5px #222;
