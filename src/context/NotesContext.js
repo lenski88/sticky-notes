@@ -53,7 +53,9 @@ const notesReducer = (state = initialState, action) => {
           {
             id: uuid(),
             note: action.payload,
-            color: notesColors[randomDiap(1, 5)],
+            color: notesColors[randomDiap(0, 4)],
+            rotate: randomDiap(-2, 2),
+            time: formatDateTime(new Date())
           },
         ],
       };
