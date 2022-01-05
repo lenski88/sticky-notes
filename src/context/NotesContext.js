@@ -31,7 +31,6 @@ function randomDiap(n, m) {
   return Math.floor(Math.random() * (m - n + 1)) + n;
 }
 
-
 const initialState = {
   lastNoteDate: null,
   totalNotes: 0,
@@ -40,6 +39,7 @@ const initialState = {
 
 const ADD_NOTES = "ADD_NOTES";
 const DELETE_NOTE = "DELETE_NOTE";
+const CHANGE_COLOR = "CHANGE_COLOR";
 
 const notesReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -55,7 +55,7 @@ const notesReducer = (state = initialState, action) => {
             note: action.payload,
             color: notesColors[randomDiap(0, 4)],
             rotate: randomDiap(-2, 2),
-            time: formatDateTime(new Date())
+            time: formatDateTime(new Date()),
           },
         ],
       };
@@ -65,6 +65,21 @@ const notesReducer = (state = initialState, action) => {
         ...state,
         totalNotes: state.notes.length - 1,
         notes: state.notes.filter((i) => i.id !== action.payload),
+      };
+    }
+
+    case CHANGE_COLOR: {
+      let task = state.notes.find((i) => i.id === action.id);
+      task = { ...task, color: action.color };
+
+      return {
+        ...state,
+        notes: state.notes.map((i) => {
+          if (i.id === action.id) {
+            return task;
+          }
+          return i;
+        }),
       };
     }
     default: {
@@ -83,8 +98,14 @@ export const NotesContextProvider = ({ children }) => {
     dispatch({ type: DELETE_NOTE, payload: id });
   };
 
+  const changeColor = (id, color) => {
+    dispatch({ type: CHANGE_COLOR, id: id, color: color });
+  };
+
   return (
-    <NotesContext.Provider value={{ state, addNote, deleteNote }}>
+    <NotesContext.Provider
+      value={{ state, addNote, deleteNote, notesColors, changeColor }}
+    >
       {children}
     </NotesContext.Provider>
   );

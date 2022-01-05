@@ -1,21 +1,36 @@
-import React, {useContext} from "react";
+import React, { useState, useContext, useCallback } from "react";
 import styled from "styled-components";
 import { NotesContext } from "../context/NotesContext";
+import { ListColors } from "./ListColors";
 
 export const Task = ({ id, note, time, color, rotate }) => {
-    const {deleteNote} = useContext(NotesContext)
+  const { deleteNote } = useContext(NotesContext);
+  const [isChangeColor, setIsChangeColor] = useState(false);
+
+  const colorChanged = useCallback(() => {
+    setIsChangeColor(false);
+  }, []);
+
   return (
     <StyledTask bg={color} rt={rotate}>
       {note}
       <span>
         <i>{time}</i>
       </span>
-      <i className="far fa-trash-alt" onClick={()=> deleteNote(id)}></i>
+      <i className="far fa-trash-alt delete" onClick={() => deleteNote(id)}></i>
+      <i
+        className="far fa-ellipsis-h change"
+        onClick={() => setIsChangeColor(!isChangeColor)}
+      ></i>
+      {isChangeColor && (
+        <ListColors color={color} id={id} cbColorChanged={colorChanged} />
+      )}
     </StyledTask>
   );
 };
 
 const StyledTask = styled.li`
+  position: relative;
   height: 300px;
   background-color: ${({ bg }) => bg};
   color: #444;
@@ -33,17 +48,31 @@ const StyledTask = styled.li`
     right: 5px;
     font-size: 1.5rem;
   }
-  & > i {
+  & .delete {
     position: absolute;
     bottom: 5px;
     left: 5px;
     font-size: 2.5rem;
-    transition: all .5s;
+    transition: all 0.5s;
+    cursor: pointer;
 
     &:hover {
-        color: red;
-        opacity:.9;
-        transform: scale(.9);
+      color: red;
+      opacity: 0.9;
+      transform: scale(0.9);
+    }
+  }
+
+  & .change {
+    position: absolute;
+    bottom: 5px;
+    left: 45px;
+    font-size: 2.5rem;
+    transition: all 0.5s;
+    cursor: pointer;
+
+    &:hover {
+      transform: scale(0.9);
     }
   }
 `;

@@ -58,6 +58,7 @@ const StyledNewNotesFrom = styled.form`
     color: #444;
     text-transform: uppercase;
     font-weight: 700;
+    cursor:pointer;
     &:hover {
       background-color: #7bfcff;
       transform: scale(0.98);
