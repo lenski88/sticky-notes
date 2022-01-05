@@ -70,11 +70,10 @@ const notesReducer = (state = initialState, action) => {
     }
   }
 };
-
 export const NotesContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(notesReducer, initialState);
 
-  const addNotes = (note) => {
+  const addNote = (note) => {
     dispatch({ type: ADD_NOTES, payload: note });
   };
 
@@ -83,7 +82,7 @@ export const NotesContextProvider = ({ children }) => {
   };
 
   return (
-    <NotesContext.Provider value={{ state, addNotes, deleteNote }}>
+    <NotesContext.Provider value={{ state, addNote, deleteNote }}>
       {children}
     </NotesContext.Provider>
   );
