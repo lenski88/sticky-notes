@@ -39,7 +39,7 @@ const initialState = {
 };
 
 const ADD_NOTES = "ADD_NOTES";
-const DELETE_NOTES = "DELETE_NOTES";
+const DELETE_NOTE = "DELETE_NOTE";
 
 const notesReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -60,11 +60,11 @@ const notesReducer = (state = initialState, action) => {
         ],
       };
     }
-    case DELETE_NOTES: {
+    case DELETE_NOTE: {
       return {
         ...state,
         totalNotes: state.notes.length - 1,
-        notes: state.notes.filter((id) => id !== action.payload),
+        notes: state.notes.filter((i) => i.id !== action.payload),
       };
     }
     default: {
@@ -80,7 +80,7 @@ export const NotesContextProvider = ({ children }) => {
   };
 
   const deleteNote = (id) => {
-    dispatch({ type: DELETE_NOTES, payload: id });
+    dispatch({ type: DELETE_NOTE, payload: id });
   };
 
   return (

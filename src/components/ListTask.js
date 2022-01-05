@@ -5,7 +5,6 @@ import { Task } from "./Task";
 
 export const ListTask = () => {
   const { state } = useContext(NotesContext);
-  console.log(state);
   return (
     <StyledListTasksGrid>
       {state.notes.map((i) => {

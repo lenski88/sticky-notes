@@ -1,12 +1,16 @@
-import React from "react";
+import React, {useContext} from "react";
 import styled from "styled-components";
+import { NotesContext } from "../context/NotesContext";
 
 export const Task = ({ id, note, time, color, rotate }) => {
-  console.log(color);
+    const {deleteNote} = useContext(NotesContext)
   return (
     <StyledTask bg={color} rt={rotate}>
       {note}
-      <i>{time}</i>
+      <span>
+        <i>{time}</i>
+      </span>
+      <i className="far fa-trash-alt" onClick={()=> deleteNote(id)}></i>
     </StyledTask>
   );
 };
@@ -23,10 +27,23 @@ const StyledTask = styled.li`
   overflow: hidden auto;
   transform: rotate(${({ rt }) => rt + "deg"});
 
-  & i {
+  & span {
     position: absolute;
     bottom: 2px;
     right: 5px;
     font-size: 1.5rem;
+  }
+  & > i {
+    position: absolute;
+    bottom: 5px;
+    left: 5px;
+    font-size: 2.5rem;
+    transition: all .5s;
+
+    &:hover {
+        color: red;
+        opacity:.9;
+        transform: scale(.9);
+    }
   }
 `;
