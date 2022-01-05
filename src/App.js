@@ -35,4 +35,12 @@ const StyledHeaderGrid = styled.div`
   gap:20px;
   grid-template-areas: "newNoteForm header";
   margin: 20px 0 40px 0;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    grid-template-areas: 
+    'newNoteForm'
+    'header';
+    justify-content: center;
+  }
 `;

@@ -34,6 +34,11 @@ const StyledNewNotesFrom = styled.form`
   background-color: #ff7fba;
   box-shadow: 0 0 5px #222;
   grid-area: newNoteForm;
+  transition: all .5s;
+
+  @media (max-width: 768px) {
+    width:100%
+  }
 
   & textarea {
     border: 1px solid lightgrey;

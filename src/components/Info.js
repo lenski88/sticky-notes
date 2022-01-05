@@ -23,4 +23,8 @@ grid-area: header;
 background: #feff9d;
 box-shadow: 0 0 5px #222;
 border:none;
+
+@media (max-width: 400px) {
+    font-size: 1.2rem;
+}
 `
