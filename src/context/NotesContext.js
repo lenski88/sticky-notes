@@ -1,4 +1,4 @@
-import React, { createContext, useReducer } from "react";
+import React, { createContext, useReducer, useEffect } from "react";
 import { v4 as uuid } from "uuid";
 
 export const NotesContext = createContext();
@@ -31,7 +31,7 @@ function randomDiap(n, m) {
   return Math.floor(Math.random() * (m - n + 1)) + n;
 }
 
-const initialState = {
+const initialState = JSON.parse(localStorage.getItem("notes")) ?? {
   lastNoteDate: null,
   totalNotes: 0,
   notes: [],
@@ -101,8 +101,15 @@ const notesReducer = (state = initialState, action) => {
     }
   }
 };
+
+
+
 export const NotesContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(notesReducer, initialState);
+
+  useEffect(()=> {
+    localStorage.setItem("notes", JSON.stringify(state));
+  },[state]);
 
   const addNote = (note) => {
     dispatch({ type: ADD_NOTES, payload: note });

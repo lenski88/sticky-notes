@@ -14,9 +14,8 @@ export const Task = ({ id, note, time, color, rotate }) => {
   };
 
   const cancelChangeNote = () => {
-      setIsChangeNote(false);
-  }
-
+    setIsChangeNote(false);
+  };
   return (
     <StyledTask bg={color} rt={rotate}>
       {note}
@@ -31,8 +30,18 @@ export const Task = ({ id, note, time, color, rotate }) => {
       {isChangeColor && (
         <ListColors color={color} id={id} cbColorChanged={colorChanged} />
       )}
-      <i className="fas fa-pencil-alt changeNote" onClick={()=> setIsChangeNote(!isChangeNote)}></i>
-      {isChangeNote && <ChangeNote id={id} note={note} bg={color} cbCancelChangeNote={cancelChangeNote}/>}
+      <i
+        className="fas fa-pencil-alt changeNote"
+        onClick={() => setIsChangeNote(!isChangeNote)}
+      ></i>
+      {isChangeNote && (
+        <ChangeNote
+          id={id}
+          note={note}
+          bg={color}
+          cbCancelChangeNote={cancelChangeNote}
+        />
+      )}
     </StyledTask>
   );
 };
