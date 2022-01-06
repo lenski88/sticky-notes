@@ -1,6 +1,7 @@
 import React, {useContext} from 'react';
 import styled from 'styled-components';
 import { NotesContext } from '../context/NotesContext';
+import { Search } from './Search';
 
 export const Info = () => {
     const {state} = useContext(NotesContext);
@@ -8,6 +9,7 @@ export const Info = () => {
         <StyledInfo>
         <h1>Quantity of tasks: {state.totalNotes}</h1>
         {state.notes.length ? <p><i>Last note: {state.lastNoteDate}</i></p> : null}
+        <Search/>
         </StyledInfo>
     )
 }

@@ -8,7 +8,8 @@ export const ListTask = () => {
 
   return (
     <StyledListTasksGrid>
-      {state.notes.map((i) => {
+      
+      {state.filterNotes.length ? state.filterNotes.map((i) => {
         return (
           <Task
             key={i.id}
@@ -20,7 +21,19 @@ export const ListTask = () => {
             card={i}
           />
         );
-      })}
+      }) : state.notes.map((i) => {
+        return (
+          <Task
+            key={i.id}
+            id={i.id}
+            note={i.note}
+            time={i.time}
+            color={i.color}
+            rotate={i.rotate}
+            card={i}
+          />
+        );
+      }) }
     </StyledListTasksGrid>
   );
 };

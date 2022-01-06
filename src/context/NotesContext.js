@@ -35,12 +35,15 @@ const initialState = JSON.parse(localStorage.getItem("notes")) ?? {
   lastNoteDate: null,
   totalNotes: 0,
   notes: [],
+  filterNotes: [],
 };
 
 const ADD_NOTES = "ADD_NOTES";
 const DELETE_NOTE = "DELETE_NOTE";
 const CHANGE_COLOR = "CHANGE_COLOR";
 const CHANGE_NOTE = "CHANGE_NOTE";
+const FILTER = "FILTER";
+const SHOW_ALL = "SHOW_ALL";
 
 const notesReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -66,6 +69,7 @@ const notesReducer = (state = initialState, action) => {
         ...state,
         totalNotes: state.notes.length - 1,
         notes: state.notes.filter((i) => i.id !== action.payload),
+        filterNotes: state.filterNotes.filter((i) => i.id !== action.payload),
       };
     }
 
@@ -76,6 +80,12 @@ const notesReducer = (state = initialState, action) => {
       return {
         ...state,
         notes: state.notes.map((i) => {
+          if (i.id === action.id) {
+            return task;
+          }
+          return i;
+        }),
+        filterNotes: state.filterNotes.map((i) => {
           if (i.id === action.id) {
             return task;
           }
@@ -94,7 +104,23 @@ const notesReducer = (state = initialState, action) => {
           }
           return i;
         }),
+        filterNotes: state.filterNotes.map((i) => {
+          if (i.id === action.id) {
+            return task;
+          }
+          return i;
+        }),
       };
+    }
+    case FILTER: {
+      if (!action.payload) return { ...state, filterNotes: [] };
+      return {
+        ...state,
+        filterNotes: state.notes.filter((i) => i.note.includes(action.payload)),
+      };
+    }
+    case SHOW_ALL: {
+      return { ...state, filterNotes: [] };
     }
     default: {
       return state;
@@ -102,14 +128,14 @@ const notesReducer = (state = initialState, action) => {
   }
 };
 
-
-
 export const NotesContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(notesReducer, initialState);
-
-  useEffect(()=> {
-    localStorage.setItem("notes", JSON.stringify(state));
-  },[state]);
+  useEffect(() => {
+    localStorage.setItem(
+      "notes",
+      JSON.stringify({ ...state, filterNotes: [] })
+    );
+  }, [state]);
 
   const addNote = (note) => {
     dispatch({ type: ADD_NOTES, payload: note });
@@ -127,6 +153,14 @@ export const NotesContextProvider = ({ children }) => {
     dispatch({ type: CHANGE_NOTE, id: id, changedNote: changedNote });
   };
 
+  const filterNotes = (input) => {
+    dispatch({ type: FILTER, payload: input });
+  };
+
+  const showAll = () => {
+    dispatch({ type: SHOW_ALL });
+  };
+
   return (
     <NotesContext.Provider
       value={{
@@ -136,6 +170,8 @@ export const NotesContextProvider = ({ children }) => {
         notesColors,
         changeColor,
         changeNote,
+        filterNotes,
+        showAll,
       }}
     >
       {children}
