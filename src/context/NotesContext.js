@@ -116,7 +116,7 @@ const notesReducer = (state = initialState, action) => {
       if (!action.payload) return { ...state, filterNotes: [] };
       return {
         ...state,
-        filterNotes: state.notes.filter((i) => i.note.includes(action.payload)),
+        filterNotes: state.notes.filter((i) => i.note.toLowerCase().includes(action.payload.toLowerCase())),
       };
     }
     case SHOW_ALL: {
