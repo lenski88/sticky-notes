@@ -16,23 +16,33 @@ export const Task = ({ id, note, time, color, rotate }) => {
   const cancelChangeNote = () => {
     setIsChangeNote(false);
   };
+
+  const handleDeleteNote = () => {
+    deleteNote(id);
+  };
+
+  const handleIsChangeColor = () => {
+    setIsChangeColor(!isChangeColor);
+  };
+
+  const handleIsChangeNote = () => {
+    setIsChangeNote(!isChangeNote);
+  };
+
   return (
     <StyledTask bg={color} rt={rotate}>
       {note}
       <span>
         <i>{time}</i>
       </span>
-      <i className="far fa-trash-alt delete" onClick={() => deleteNote(id)}></i>
-      <i
-        className="far fa-ellipsis-h change"
-        onClick={() => setIsChangeColor(!isChangeColor)}
-      ></i>
+      <i className="far fa-trash-alt delete" onClick={handleDeleteNote}></i>
+      <i className="far fa-ellipsis-h change" onClick={handleIsChangeColor}></i>
       {isChangeColor && (
         <ListColors color={color} id={id} cbColorChanged={colorChanged} />
       )}
       <i
         className="fas fa-pencil-alt changeNote"
-        onClick={() => setIsChangeNote(!isChangeNote)}
+        onClick={handleIsChangeNote}
       ></i>
       {isChangeNote && (
         <ChangeNote

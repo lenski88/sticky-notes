@@ -14,11 +14,15 @@ export const NewNotes = () => {
     addNote(note);
     setNote("");
   };
+
+  const handleChangeCreate = (eo) => {
+    setNote(eo.target.value)
+  }
   return (
     <StyledNewNotesFrom onSubmit={handleSubmit}>
       <textarea
         value={note}
-        onChange={(eo) => setNote(eo.target.value)}
+        onChange={handleChangeCreate}
         placeholder="Type here your note..."
         maxLength={140}
       ></textarea>

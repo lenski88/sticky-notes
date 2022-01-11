@@ -10,18 +10,19 @@ export const Search = () => {
   const handleSearch = (eo) => {
     eo.preventDefault();
     filterNotes(search);
-    setSearch('')
+    setSearch("");
   };
+
+  const handleChangeFilter = (eo) => {
+    setSearch(eo.target.value);
+  };
+
   return (
     <StyledSearch onSubmit={handleSearch}>
-      <input
-        type="text"
-        value={search}
-        onChange={(eo) => setSearch(eo.target.value)}
-      />
+      <input type="text" value={search} placeholder="Type here to search..." onChange={handleChangeFilter} />
       <br />
-      <button type='submit'>Search</button>
-      <ShowAll/>
+      <button type="submit">Search</button>
+      <ShowAll />
     </StyledSearch>
   );
 };
@@ -56,13 +57,13 @@ const StyledSearch = styled.form`
     }
   }
 
-  @media (max-width:768px) {
-      input {
-          width:100%
-      }
-      button {
-          width: 100%;
-          margin: 20px 0;
-      }
+  @media (max-width: 768px) {
+    input {
+      width: 100%;
+    }
+    button {
+      width: 100%;
+      margin: 20px 0;
+    }
   }
 `;

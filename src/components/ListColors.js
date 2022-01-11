@@ -9,14 +9,15 @@ export const ListColors = ({ color, id, cbColorChanged }) => {
   return (
     <StyledListColors>
       {filterColors.map((i) => {
+        const handleChangeColor = () => {
+          changeColor(id, i);
+          cbColorChanged();
+        };
         return (
           <StyledListItem
             key={i}
             bg={i}
-            onClick={() => {
-              changeColor(id, i);
-              cbColorChanged();
-            }}
+            onClick={handleChangeColor}
           ></StyledListItem>
         );
       })}

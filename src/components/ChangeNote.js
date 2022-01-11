@@ -2,32 +2,42 @@ import React, { useState, useContext } from "react";
 import styled from "styled-components";
 import { NotesContext } from "../context/NotesContext";
 
-export const ChangeNote = ({ id ,note, bg, cbCancelChangeNote }) => {
+export const ChangeNote = ({ id, note, bg, cbCancelChangeNote }) => {
   const [changedNote, setChangedNote] = useState(note);
-  const {changeNote} = useContext(NotesContext);
+  const { changeNote } = useContext(NotesContext);
 
   const handleChangeNote = (eo) => {
     eo.preventDefault();
 
     if (!changedNote) return;
-    if (changedNote === note)  {
-        cbCancelChangeNote();
-        return;    
+    if (changedNote === note) {
+      cbCancelChangeNote();
+      return;
     }
 
     changeNote(id, changedNote);
+    cbCancelChangeNote();
+  };
+
+  const handleChangeNoteInput = (eo) => {
+    setChangedNote(eo.target.value);
+  };
+
+  const handleCancelChangeNote = () => {
     cbCancelChangeNote();
   };
   return (
     <StyledChangeNote bg={bg} onSubmit={handleChangeNote}>
       <textarea
         value={changedNote}
-        onChange={(eo) => setChangedNote(eo.target.value)}
+        onChange={handleChangeNoteInput}
         placeholder="Type here your note..."
         maxLength={140}
       ></textarea>
       <button type="submit">Change</button>
-      <button type="reset" onClick={() => cbCancelChangeNote()}>Cancel</button>
+      <button type="reset" onClick={handleCancelChangeNote}>
+        Cancel
+      </button>
     </StyledChangeNote>
   );
 };
@@ -39,7 +49,7 @@ const StyledChangeNote = styled.form`
   width: 300px;
   height: 300px;
   padding: 20px;
-  background-color: ${({bg})=> bg};
+  background-color: ${({ bg }) => bg};
   box-shadow: 0 0 5px #222;
   grid-area: newNoteForm;
   transition: all 0.5s;
