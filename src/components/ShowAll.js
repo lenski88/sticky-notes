@@ -1,12 +1,12 @@
-import React, {useContext} from 'react';
-import { NotesContext } from '../context/NotesContext';
+import React, { useContext } from "react";
+import { NotesContext } from "../context/NotesContext";
+import { StyledSearchButton } from "./Search";
 
 export const ShowAll = () => {
-    const { showAll } = useContext(NotesContext);
-    return (
-        <button onClick={showAll}>
-            Show All
-        </button>
-    )
-}
-
+  const { showAll, state } = useContext(NotesContext);
+  return (
+    <StyledSearchButton filterNotes={state.filterNotes} onClick={showAll}>
+      Show All
+    </StyledSearchButton>
+  );
+};

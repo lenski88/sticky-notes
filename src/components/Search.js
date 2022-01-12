@@ -19,9 +19,14 @@ export const Search = () => {
 
   return (
     <StyledSearch onSubmit={handleSearch}>
-      <input type="text" value={search} placeholder="Type here to search..." onChange={handleChangeFilter} />
+      <input
+        type="text"
+        value={search}
+        placeholder="Type here to search..."
+        onChange={handleChangeFilter}
+      />
       <br />
-      <button type="submit">Search</button>
+      <StyledSearchButton type="submit">Search</StyledSearchButton>
       <ShowAll />
     </StyledSearch>
   );
@@ -39,24 +44,6 @@ const StyledSearch = styled.form`
     outline: none;
   }
 
-  & button {
-    width: 30%;
-    padding: 10px;
-    margin: 20px 20px;
-    background-color: #feff9d;
-    border: none;
-    box-shadow: 0 0 5px #222;
-    transition: all 0.5s;
-    color: #444;
-    text-transform: uppercase;
-    font-weight: 700;
-    cursor: pointer;
-    &:hover {
-      background-color: #7bfcff;
-      transform: scale(0.98);
-    }
-  }
-
   @media (max-width: 768px) {
     input {
       width: 100%;
@@ -65,5 +52,36 @@ const StyledSearch = styled.form`
       width: 100%;
       margin: 20px 0;
     }
+  }
+`;
+
+export const StyledSearchButton = styled.button`
+  width: 30%;
+  padding: 10px;
+  margin: 20px 20px;
+  background-color: #feff9d;
+  border: none;
+  box-shadow: 0 0 5px #222;
+  transition: all 0.5s;
+  color: #444;
+  text-transform: uppercase;
+  font-weight: 700;
+  cursor: pointer;
+
+  animation: ${({ filterNotes }) =>
+   filterNotes && filterNotes.length ? "showAllAnimate .25s alternate infinite" : null};
+
+  @keyframes showAllAnimate {
+    0% {
+      transform: scale(1);
+    }
+    100% {
+      transform: scale(0.98);
+    }
+  }
+
+  &:hover {
+    background-color: #7bfcff;
+    transform: scale(0.98);
   }
 `;
