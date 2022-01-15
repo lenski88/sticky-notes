@@ -2,7 +2,7 @@ import React, { useState, useContext } from "react";
 import styled from "styled-components";
 import { NotesContext } from "../context/NotesContext";
 
-export const NewNotes = () => {
+export const NewNotes = React.memo(() => {
   const { addNote } = useContext(NotesContext);
   const [note, setNote] = useState("");
 
@@ -29,7 +29,7 @@ export const NewNotes = () => {
       <button type="submit">Create note</button>
     </StyledNewNotesFrom>
   );
-};
+});
 
 const StyledNewNotesFrom = styled.form`
   width: 300px;

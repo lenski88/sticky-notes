@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { NotesContext } from '../context/NotesContext';
 import { Search } from './Search';
 
-export const Info = () => {
+export const Info = React.memo(() => {
     const {state} = useContext(NotesContext);
     return (
         <StyledInfo>
@@ -12,7 +12,7 @@ export const Info = () => {
         <Search/>
         </StyledInfo>
     )
-}
+});
 
 const StyledInfo = styled.div`
 text-align: center;
