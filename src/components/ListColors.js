@@ -2,28 +2,27 @@ import React, { useContext } from "react";
 import { NotesContext } from "../context/NotesContext";
 import styled from "styled-components";
 
-export const ListColors = ({ color, id, cbColorChanged }) => {
+export const ListColors = React.memo(({ color, id, cbColorChanged }) => {
   const { notesColors, changeColor } = useContext(NotesContext);
   const filterColors = notesColors.filter((i) => i !== color);
 
   return (
     <StyledListColors>
       {filterColors.map((i) => {
-        const handleChangeColor = () => {
-          changeColor(id, i);
-          cbColorChanged();
-        };
         return (
           <StyledListItem
             key={i}
             bg={i}
-            onClick={handleChangeColor}
+            onClick={() => {
+              changeColor(id, i);
+              cbColorChanged();
+            }}
           ></StyledListItem>
         );
       })}
     </StyledListColors>
   );
-};
+});
 
 const StyledListColors = styled.ul`
   position: absolute;

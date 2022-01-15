@@ -3,7 +3,7 @@ import { NotesContext } from "../context/NotesContext";
 import styled from "styled-components";
 import { Task } from "./Task";
 
-export const ListTask = () => {
+export const ListTask = React.memo(() => {
   const { state } = useContext(NotesContext);
 
   return (
@@ -37,7 +37,7 @@ export const ListTask = () => {
           })}
     </StyledListTasksGrid>
   );
-};
+});
 
 const StyledListTasksGrid = styled.ul`
   width: 100%;
