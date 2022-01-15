@@ -3,7 +3,7 @@ import { NotesContext } from "../context/NotesContext";
 import styled from "styled-components";
 import { ShowAll } from "./ShowAll";
 
-export const Search = () => {
+export const Search = React.memo(() => {
   const [search, setSearch] = useState("");
   const { filterNotes } = useContext(NotesContext);
 
@@ -30,7 +30,7 @@ export const Search = () => {
       <ShowAll />
     </StyledSearch>
   );
-};
+});
 
 const StyledSearch = styled.form`
   width: 90%;

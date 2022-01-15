@@ -2,7 +2,7 @@ import React, { useState, useContext } from "react";
 import styled from "styled-components";
 import { NotesContext } from "../context/NotesContext";
 
-export const ChangeNote = ({ id, note, bg, cbCancelChangeNote }) => {
+export const ChangeNote = React.memo(({ id, note, bg, cbCancelChangeNote }) => {
   const [changedNote, setChangedNote] = useState(note);
   const { changeNote } = useContext(NotesContext);
 
@@ -40,7 +40,7 @@ export const ChangeNote = ({ id, note, bg, cbCancelChangeNote }) => {
       </button>
     </StyledChangeNote>
   );
-};
+});
 
 const StyledChangeNote = styled.form`
   position: absolute;

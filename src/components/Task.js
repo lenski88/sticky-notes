@@ -4,7 +4,7 @@ import { NotesContext } from "../context/NotesContext";
 import { ListColors } from "./ListColors";
 import { ChangeNote } from "./ChangeNote";
 
-export const Task = ({ id, note, time, color, rotate }) => {
+export const Task = React.memo(({ id, note, time, color, rotate }) => {
   const { deleteNote } = useContext(NotesContext);
   const [isChangeColor, setIsChangeColor] = useState(false);
   const [isChangeNote, setIsChangeNote] = useState(false);
@@ -54,7 +54,7 @@ export const Task = ({ id, note, time, color, rotate }) => {
       )}
     </StyledTask>
   );
-};
+});
 
 const StyledTask = styled.li`
   position: relative;

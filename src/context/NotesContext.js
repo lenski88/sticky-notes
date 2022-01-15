@@ -1,4 +1,9 @@
-import React, { createContext, useReducer, useEffect } from "react";
+import React, {
+  createContext,
+  useReducer,
+  useEffect,
+  useCallback,
+} from "react";
 import { v4 as uuid } from "uuid";
 
 export const NotesContext = createContext();
@@ -116,7 +121,9 @@ const notesReducer = (state = initialState, action) => {
       if (!action.payload) return { ...state, filterNotes: [] };
       return {
         ...state,
-        filterNotes: state.notes.filter((i) => i.note.toLowerCase().includes(action.payload.toLowerCase())),
+        filterNotes: state.notes.filter((i) =>
+          i.note.toLowerCase().includes(action.payload.toLowerCase())
+        ),
       };
     }
     case SHOW_ALL: {
@@ -154,9 +161,9 @@ export const NotesContextProvider = ({ children }) => {
   };
 
   const filterNotes = (input) => {
-    dispatch({ type: FILTER, payload: input });
-  };
-
+      dispatch({ type: FILTER, payload: input });
+    };
+  
   const showAll = () => {
     dispatch({ type: SHOW_ALL });
   };
