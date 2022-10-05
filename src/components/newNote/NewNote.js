@@ -1,8 +1,8 @@
 import React, { useState, useContext } from "react";
 import styled from "styled-components";
-import { NotesContext } from "../context/NotesContext";
+import { NotesContext } from "../../context/NotesContext";
 
-export const NewNotes = React.memo(() => {
+export const NewNote = React.memo(() => {
   const { addNote } = useContext(NotesContext);
   const [note, setNote] = useState("");
 
@@ -18,13 +18,15 @@ export const NewNotes = React.memo(() => {
   const handleChangeCreate = (eo) => {
     setNote(eo.target.value)
   }
+  
   return (
-    <StyledNewNotesFrom onSubmit={handleSubmit}>
+    <StyledNewNotesFrom onSubmit={handleSubmit} role='form'>
       <textarea
         value={note}
         onChange={handleChangeCreate}
         placeholder="Type here your note..."
         maxLength={140}
+        data-testid='textarea'
       ></textarea>
       <button type="submit">Create note</button>
     </StyledNewNotesFrom>

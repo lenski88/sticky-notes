@@ -2,7 +2,7 @@ import React from "react";
 import { NotesContextProvider } from "./context/NotesContext";
 import { GlobalStyles } from "./globalStyles";
 import styled from "styled-components";
-import { NewNotes } from "./components/NewNotes";
+import { NewNote } from "./components/newNote/NewNote";
 import { Info } from "./components/Info";
 import { ListTask } from "./components/ListTask";
 
@@ -12,7 +12,7 @@ function App() {
       <GlobalStyles />
       <StyledContainer>
         <StyledHeaderGrid>
-          <NewNotes />
+          <NewNote />
           <Info />
         </StyledHeaderGrid>
         <ListTask/>
