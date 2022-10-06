@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
-import { NotesContext } from "../context/NotesContext";
 import styled from "styled-components";
+import { NotesContext } from "../context/NotesContext";
 
 export const ListColors = React.memo(({ color, id, cbColorChanged }) => {
   const { notesColors, changeColor } = useContext(NotesContext);
@@ -8,18 +8,16 @@ export const ListColors = React.memo(({ color, id, cbColorChanged }) => {
 
   return (
     <StyledListColors>
-      {filterColors.map((i) => {
-        return (
-          <StyledListItem
-            key={i}
-            bg={i}
-            onClick={() => {
-              changeColor(id, i);
-              cbColorChanged();
-            }}
-          ></StyledListItem>
-        );
-      })}
+      {filterColors.map((i) => (
+        <StyledListItem
+          key={i}
+          bg={i}
+          onClick={() => {
+            changeColor(id, i);
+            cbColorChanged();
+          }}
+        />
+      ))}
     </StyledListColors>
   );
 });

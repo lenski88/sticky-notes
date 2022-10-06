@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
-import { NotesContext } from "../context/NotesContext";
 import styled from "styled-components";
+import { NotesContext } from "../context/NotesContext";
 import { ShowAll } from "./ShowAll";
 
 export const Search = React.memo(() => {
@@ -55,7 +55,7 @@ const StyledSearch = styled.form`
   }
 `;
 
-export const StyledSearchButton = styled.button`
+const StyledSearchButton = styled.button`
   width: 30%;
   padding: 10px;
   margin: 20px 20px;
@@ -69,7 +69,9 @@ export const StyledSearchButton = styled.button`
   cursor: pointer;
 
   animation: ${({ filterNotes }) =>
-   filterNotes && filterNotes.length ? "showAllAnimate .25s alternate infinite" : null};
+    filterNotes && filterNotes.length
+      ? "showAllAnimate .25s alternate infinite"
+      : null};
 
   @keyframes showAllAnimate {
     0% {

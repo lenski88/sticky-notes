@@ -1,36 +1,32 @@
-import React, {
-  createContext,
-  useReducer,
-  useEffect,
-} from "react";
+import React, { createContext, useReducer, useEffect } from "react";
 import { v4 as uuid } from "uuid";
 
 export const NotesContext = createContext();
 
-//форматирование даты
+function str0l(val, len) {
+  let strVal = val.toString();
+  while (strVal.length < len) strVal = `0${strVal}`;
+  return strVal;
+}
+
+// форматирование даты
 function formatDateTime(dt) {
-  var year = dt.getFullYear();
-  var month = dt.getMonth() + 1;
-  var day = dt.getDate();
-  var hours = dt.getHours();
-  var minutes = dt.getMinutes();
-  var seconds = dt.getSeconds();
+  const year = dt.getFullYear();
+  const month = dt.getMonth() + 1;
+  const day = dt.getDate();
+  const hours = dt.getHours();
+  const minutes = dt.getMinutes();
+  const seconds = dt.getSeconds();
   return `${str0l(day, 2)}.${str0l(month, 2)}.${year} ${str0l(
     hours,
     2
   )}:${str0l(minutes, 2)}:${str0l(seconds, 2)}`;
 }
 
-function str0l(val, len) {
-  var strVal = val.toString();
-  while (strVal.length < len) strVal = "0" + strVal;
-  return strVal;
-}
-
 // массив цветов заметок
 const notesColors = ["#ff7fba", "#ff65a4", "#7bfcff", "#feff9d", "#fff73e"];
 
-//получение случайного элемента массива цветов при создании заметки
+// получение случайного элемента массива цветов при создании заметки
 function randomDiap(n, m) {
   return Math.floor(Math.random() * (m - n + 1)) + n;
 }
@@ -134,7 +130,7 @@ const notesReducer = (state = initialState, action) => {
   }
 };
 
-export const NotesContextProvider = ({ children }) => {
+export function NotesContextProvider({ children }) {
   const [state, dispatch] = useReducer(notesReducer, initialState);
   useEffect(() => {
     localStorage.setItem(
@@ -152,17 +148,17 @@ export const NotesContextProvider = ({ children }) => {
   };
 
   const changeColor = (id, color) => {
-    dispatch({ type: CHANGE_COLOR, id: id, color: color });
+    dispatch({ type: CHANGE_COLOR, id, color });
   };
 
   const changeNote = (id, changedNote) => {
-    dispatch({ type: CHANGE_NOTE, id: id, changedNote: changedNote });
+    dispatch({ type: CHANGE_NOTE, id, changedNote });
   };
 
   const filterNotes = (input) => {
-      dispatch({ type: FILTER, payload: input });
-    };
-  
+    dispatch({ type: FILTER, payload: input });
+  };
+
   const showAll = () => {
     dispatch({ type: SHOW_ALL });
   };
@@ -183,4 +179,4 @@ export const NotesContextProvider = ({ children }) => {
       {children}
     </NotesContext.Provider>
   );
-};
+}

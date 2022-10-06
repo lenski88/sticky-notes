@@ -16,18 +16,18 @@ export const NewNote = React.memo(() => {
   };
 
   const handleChangeCreate = (eo) => {
-    setNote(eo.target.value)
-  }
-  
+    setNote(eo.target.value);
+  };
+
   return (
-    <StyledNewNotesFrom onSubmit={handleSubmit} role='form'>
+    <StyledNewNotesFrom onSubmit={handleSubmit} role="form">
       <textarea
         value={note}
         onChange={handleChangeCreate}
         placeholder="Type here your note..."
         maxLength={140}
-        data-testid='textarea'
-      ></textarea>
+        data-testid="textarea"
+      />
       <button type="submit">Create note</button>
     </StyledNewNotesFrom>
   );

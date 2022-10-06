@@ -21,11 +21,11 @@ export const Task = React.memo(({ id, note, time, color, rotate }) => {
     deleteNote(id);
   };
 
-  const handleIsChangeColor = () => {
+  const handleChangeColor = () => {
     setIsChangeColor(!isChangeColor);
   };
 
-  const handleIsChangeNote = () => {
+  const handleChangeNote = () => {
     setIsChangeNote(!isChangeNote);
   };
 
@@ -35,15 +35,33 @@ export const Task = React.memo(({ id, note, time, color, rotate }) => {
       <span>
         <i>{time}</i>
       </span>
-      <i className="far fa-trash-alt delete" onClick={handleDeleteNote}></i>
-      <i className="far fa-ellipsis-h change" onClick={handleIsChangeColor}></i>
+      <i
+        aria-label="delete note"
+        className="far fa-trash-alt delete"
+        onClick={handleDeleteNote}
+        onKeyDown={handleDeleteNote}
+        role="button"
+        tabIndex={0}
+      />
+      <i
+        aria-label="change color"
+        className="far fa-ellipsis-h change"
+        onClick={handleChangeColor}
+        onKeyDown={handleChangeColor}
+        role="button"
+        tabIndex={0}
+      />
       {isChangeColor && (
         <ListColors color={color} id={id} cbColorChanged={colorChanged} />
       )}
       <i
+        aria-label="change note"
         className="fas fa-pencil-alt changeNote"
-        onClick={handleIsChangeNote}
-      ></i>
+        onClick={handleChangeNote}
+        onKeyDown={handleChangeNote}
+        role="button"
+        tabIndex={0}
+      />
       {isChangeNote && (
         <ChangeNote
           id={id}
@@ -67,7 +85,7 @@ const StyledTask = styled.li`
   padding: 10px;
   box-shadow: 0 0 5px #222;
   overflow: hidden auto;
-  transform: rotate(${({ rt }) => rt + "deg"});
+  transform: rotate(${({ rt }) => `${rt}deg`});
 
   & span {
     position: absolute;

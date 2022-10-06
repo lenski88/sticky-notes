@@ -33,9 +33,9 @@ export const ChangeNote = React.memo(({ id, note, bg, cbCancelChangeNote }) => {
         onChange={handleChangeNoteInput}
         placeholder="Type here your note..."
         maxLength={140}
-      ></textarea>
+      />
       <button type="submit">Change</button>
-      <button type="reset" onClick={handleCancelChangeNote}>
+      <button type="button" onClick={handleCancelChangeNote}>
         Cancel
       </button>
     </StyledChangeNote>
