@@ -6,6 +6,7 @@ import { NewNote } from "./NewNote";
 import {
   NotesContextProvider,
   formatDateTime,
+  notesColors,
 } from "../../context/NotesContext";
 
 describe("tests NewNote", () => {
@@ -174,5 +175,64 @@ describe("tests NewNote", () => {
     expect(JSON.parse(localStorage.getItem("notes")).notes[0].note).toBe(
       "new task"
     );
+  });
+
+  test("test rotate deg", async () => {
+    render(
+      <NotesContextProvider>
+        <NewNote />
+      </NotesContextProvider>
+    );
+
+    const input = screen.getByTestId("textarea");
+    await userEvent.type(input, "new task");
+    await userEvent.click(screen.getByRole("button"));
+
+    expect(
+      JSON.parse(localStorage.getItem("notes")).notes[0].rotate
+    ).toBeGreaterThanOrEqual(-2);
+
+    expect(
+      JSON.parse(localStorage.getItem("notes")).notes[0].rotate
+    ).not.toBeGreaterThan(2);
+  });
+
+  test("test color card", async () => {
+    render(
+      <NotesContextProvider>
+        <NewNote />
+      </NotesContextProvider>
+    );
+
+    const input = screen.getByTestId("textarea");
+    await userEvent.type(input, "new task");
+    await userEvent.click(screen.getByRole("button"));
+
+    const isColorExist = notesColors.includes(
+      JSON.parse(localStorage.getItem("notes")).notes[0].color
+    );
+
+    expect(isColorExist).toBeTruthy();
+  });
+
+  test("test unique id", async () => {
+    render(
+      <NotesContextProvider>
+        <NewNote />
+      </NotesContextProvider>
+    );
+
+    const input = screen.getByTestId("textarea");
+    const countTask = 100;
+    for (let i = 0; i < countTask; i++) {
+      await userEvent.type(input, "new task");
+      await userEvent.click(screen.getByRole("button"));
+    }
+
+    const arrayofTasks = JSON.parse(localStorage.getItem("notes")).notes;
+
+    arrayofTasks.forEach((item, index, array) => {
+      if (index !== 0) expect(item.id).not.toEqual(array[index - 1].id);
+    });
   });
 });

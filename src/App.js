@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { NotesContextProvider } from "./context/NotesContext";
 import { GlobalStyles } from "./globalStyles";
 import { NewNote } from "./components/newNote/NewNote";
-import { Info } from "./components/Info";
+import { Info } from "./components/info/Info";
 import { ListTask } from "./components/ListTask";
 
 function App() {

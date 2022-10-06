@@ -32,6 +32,8 @@
         "react/react-in-jsx-scope": "off",
         "react-hooks/exhaustive-deps": "off",
         "no-unused-vars": "warn",
-        "react/jsx-props-no-spreading": "off"
+        "react/jsx-props-no-spreading": "off",
+        "no-plusplus": "off",
+        "no-await-in-loop": "off"
     }
 }

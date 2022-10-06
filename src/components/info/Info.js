@@ -1,24 +1,26 @@
 import React, { useContext } from "react";
 import styled from "styled-components";
-import { NotesContext } from "../context/NotesContext";
-import { Search } from "./Search";
+import { NotesContext } from "../../context/NotesContext";
+import { Search } from "../Search";
 
 export const Info = React.memo(() => {
   const { state } = useContext(NotesContext);
   return (
-    <StyledInfo>
+    <StyledInfo data-testid="info-component">
       <h1>
         Quantity of tasks:
         {state.totalNotes}
       </h1>
       {state.notes.length ? (
-        <p>
+        <p data-testid="last-note">
           <i>
             Last note:
             {state.lastNoteDate}
           </i>
         </p>
-      ) : null}
+      ) : (
+        <p data-testid="empty-last-note" />
+      )}
       <Search />
     </StyledInfo>
   );

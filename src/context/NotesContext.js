@@ -24,7 +24,13 @@ export function formatDateTime(dt) {
 }
 
 // массив цветов заметок
-const notesColors = ["#ff7fba", "#ff65a4", "#7bfcff", "#feff9d", "#fff73e"];
+export const notesColors = [
+  "#ff7fba",
+  "#ff65a4",
+  "#7bfcff",
+  "#feff9d",
+  "#fff73e",
+];
 
 // получение случайного элемента массива цветов при создании заметки
 function randomDiap(n, m) {

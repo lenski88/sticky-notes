@@ -28,7 +28,9 @@ export const NewNote = React.memo(() => {
         maxLength={140}
         data-testid="textarea"
       />
-      <button type="submit">Create note</button>
+      <button type="submit" data-testid="create-note-btn">
+        Create note
+      </button>
     </StyledNewNotesFrom>
   );
 });
