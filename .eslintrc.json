@@ -28,6 +28,7 @@
         "react/prop-types": "off",
         "default-param-last": "off",
         "react/jsx-no-constructed-context-values": "off",
-        "react/react-in-jsx-scope": "off"
+        "react/react-in-jsx-scope": "off",
+        "react-hooks/exhaustive-deps": "off"
     }
 }

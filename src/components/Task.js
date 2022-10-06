@@ -21,12 +21,24 @@ export const Task = React.memo(({ id, note, time, color, rotate }) => {
     deleteNote(id);
   };
 
+  const handleKeyboardDeleteNote = (eo) => {
+    if (eo.keyCode === 68) deleteNote(id);
+  };
+
   const handleChangeColor = () => {
     setIsChangeColor(!isChangeColor);
   };
 
+  const handleKeyboardChangeColor = (eo) => {
+    if (eo.keyCode === 67) setIsChangeColor(!isChangeColor);
+  };
+
   const handleChangeNote = () => {
     setIsChangeNote(!isChangeNote);
+  };
+
+  const handleKeyboardChangeNote = (eo) => {
+    if (eo.keyCode === 87) setIsChangeNote(!isChangeNote);
   };
 
   return (
@@ -39,7 +51,7 @@ export const Task = React.memo(({ id, note, time, color, rotate }) => {
         aria-label="delete note"
         className="far fa-trash-alt delete"
         onClick={handleDeleteNote}
-        onKeyDown={handleDeleteNote}
+        onKeyDown={handleKeyboardDeleteNote}
         role="button"
         tabIndex={0}
       />
@@ -47,7 +59,7 @@ export const Task = React.memo(({ id, note, time, color, rotate }) => {
         aria-label="change color"
         className="far fa-ellipsis-h change"
         onClick={handleChangeColor}
-        onKeyDown={handleChangeColor}
+        onKeyDown={handleKeyboardChangeColor}
         role="button"
         tabIndex={0}
       />
@@ -58,7 +70,7 @@ export const Task = React.memo(({ id, note, time, color, rotate }) => {
         aria-label="change note"
         className="fas fa-pencil-alt changeNote"
         onClick={handleChangeNote}
-        onKeyDown={handleChangeNote}
+        onKeyDown={handleKeyboardChangeNote}
         role="button"
         tabIndex={0}
       />

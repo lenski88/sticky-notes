@@ -1,4 +1,4 @@
-import React, { createContext, useReducer, useEffect } from "react";
+import React, { createContext, useReducer, useEffect, useMemo } from "react";
 import { v4 as uuid } from "uuid";
 
 export const NotesContext = createContext();
@@ -163,19 +163,22 @@ export function NotesContextProvider({ children }) {
     dispatch({ type: SHOW_ALL });
   };
 
+  const NotesContextWrapper = useMemo(
+    () => ({
+      state,
+      addNote,
+      deleteNote,
+      notesColors,
+      changeColor,
+      changeNote,
+      filterNotes,
+      showAll,
+    }),
+    [state]
+  );
+
   return (
-    <NotesContext.Provider
-      value={{
-        state,
-        addNote,
-        deleteNote,
-        notesColors,
-        changeColor,
-        changeNote,
-        filterNotes,
-        showAll,
-      }}
-    >
+    <NotesContext.Provider value={NotesContextWrapper}>
       {children}
     </NotesContext.Provider>
   );
