@@ -42,7 +42,7 @@ export const Task = React.memo(({ id, note, time, color, rotate }) => {
   };
 
   return (
-    <StyledTask bg={color} rt={rotate}>
+    <StyledTask bg={color} rt={rotate} data-testid="task-card">
       {note}
       <span>
         <i>{time}</i>

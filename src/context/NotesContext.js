@@ -10,7 +10,7 @@ function str0l(val, len) {
 }
 
 // форматирование даты
-function formatDateTime(dt) {
+export function formatDateTime(dt) {
   const year = dt.getFullYear();
   const month = dt.getMonth() + 1;
   const day = dt.getDate();
